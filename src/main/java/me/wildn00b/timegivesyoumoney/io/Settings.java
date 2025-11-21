@@ -51,7 +51,7 @@ public class Settings {
     }
   }
 
-  public Object _(String path, Object value) {
+  public Object get(String path, Object value) {
     if (!file.contains(path))
       file.set(path, value);
     return file.get(path);

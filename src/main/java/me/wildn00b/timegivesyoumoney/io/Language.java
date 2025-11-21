@@ -38,7 +38,7 @@ public class Language {
         + File.separator + "lang" + File.separator;
 
     try {
-      path = new File(partpath + tgym.Settings._("Language", "en-US") + ".yml");
+      path = new File(partpath + tgym.Settings.get("Language", "en-US") + ".yml");
       if (path.exists())
         file.load(path);
       else {
@@ -54,7 +54,7 @@ public class Language {
     }
   }
 
-  public String _(String path) {
+  public String get(String path) {
     if (file.contains(path))
       return file.getString(path);
     else

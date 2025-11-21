@@ -37,14 +37,14 @@ public class Vault {
   public Vault(TimeGivesYouMoney tgym) {
     this.tgym = tgym;
     if (tgym.getServer().getPluginManager().getPlugin("Vault") == null) {
-      tgym.Log.log(Level.SEVERE, "[PreKick] " + tgym.Lang._("Vault.NotFound"));
+      tgym.Log.log(Level.SEVERE, "[PreKick] " + tgym.Lang.get("Vault.NotFound"));
       tgym.getServer().getPluginManager().disablePlugin(tgym);
     } else {
       final RegisteredServiceProvider<Permission> perm = tgym.getServer()
           .getServicesManager().getRegistration(Permission.class);
       if (perm == null) {
         tgym.Log.log(Level.SEVERE,
-            "[TimeGivesYouMoney] " + tgym.Lang._("Vault.PermissionNotFound"));
+            "[TimeGivesYouMoney] " + tgym.Lang.get("Vault.PermissionNotFound"));
         tgym.getServer().getPluginManager().disablePlugin(tgym);
         return;
       }
@@ -54,7 +54,7 @@ public class Vault {
           .getServicesManager().getRegistration(Economy.class);
       if (econ == null) {
         tgym.Log.log(Level.SEVERE,
-            "[TimeGivesYouMoney] " + tgym.Lang._("Vault.EconomyNotFound"));
+            "[TimeGivesYouMoney] " + tgym.Lang.get("Vault.EconomyNotFound"));
         tgym.getServer().getPluginManager().disablePlugin(tgym);
         return;
       }

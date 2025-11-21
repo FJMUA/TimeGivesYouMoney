@@ -50,9 +50,9 @@ public class TimeGivesYouMoney extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    if ((Boolean) Settings._("SaveProgressOnShutdown", true))
+    if ((Boolean) Settings.get("SaveProgressOnShutdown", true))
       Bank.Save();
-    Log.log(Level.INFO, Lang._("TimeGivesYouMoney.Disable"));
+    Log.log(Level.INFO, Lang.get("TimeGivesYouMoney.Disable"));
   }
 
   @Override
@@ -85,7 +85,7 @@ public class TimeGivesYouMoney extends JavaPlugin {
     } catch (final Exception e) {
     }
 
-    Log.log(Level.INFO, Lang._("TimeGivesYouMoney.Enable"));
+    Log.log(Level.INFO, Lang.get("TimeGivesYouMoney.Enable"));
   }
 
   public void Reload() {

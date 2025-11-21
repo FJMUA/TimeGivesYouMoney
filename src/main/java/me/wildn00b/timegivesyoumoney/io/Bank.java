@@ -57,7 +57,7 @@ public class Bank {
     double tmpval;
 
     if (!force) {
-      tmpobj = tgym.Settings._(
+      tmpobj = tgym.Settings.get(
           "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
               + ".MaxMoneyEarnPerDay", (double) -1);
 
@@ -72,7 +72,7 @@ public class Bank {
       } else if (tmpval != -1 && money > tmpval)
         money = money - tmpval;
 
-      tmpobj = tgym.Settings._(
+      tmpobj = tgym.Settings.get(
           "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
               + ".MaxMoneyEarnPerSession", (double) -1);
 
@@ -94,7 +94,7 @@ public class Bank {
     if (session.containsKey(player))
       day.put(player, session.get(player) + money);
 
-    if ((Boolean) tgym.Settings._("Group." + group + ".InstantPayout", false))
+    if ((Boolean) tgym.Settings.get("Group." + group + ".InstantPayout", false))
       CashOut(player);
   }
 
@@ -169,7 +169,7 @@ public class Bank {
   }
 
   public void Save() {
-    tgym.Log.log(Level.INFO, tgym.Lang._("TimeGivesYouMoney.Saving"));
+    tgym.Log.log(Level.INFO, tgym.Lang.get("TimeGivesYouMoney.Saving"));
 
     try {
       final ObjectOutputStream out = new ObjectOutputStream(
