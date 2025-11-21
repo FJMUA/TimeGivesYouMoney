@@ -4,6 +4,7 @@ import me.wildn00b.timegivesyoumoney.TimeGivesYouMoney;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -32,7 +33,7 @@ public class BlockListener implements Listener {
     if (!event.isCancelled()
         && event.getBlock() != null
         && (event.getBlock().getType() == Material.WALL_SIGN || event
-            .getBlock().getType() == Material.SIGN_POST)) {
+            .getBlock().getType() == Material.SIGN)) {
       sign = (Sign) event.getBlock().getState();
 
       if (sign.getLine(0).equals(
@@ -49,7 +50,7 @@ public class BlockListener implements Listener {
     if (!event.isCancelled()
         && event.getBlock() != null
         && (event.getBlock().getType() == Material.WALL_SIGN || event
-            .getBlock().getType() == Material.SIGN_POST)) {
+            .getBlock().getType() == Material.SIGN)) {
       sign = (Sign) event.getBlock().getState();
 
       if (sign.getLine(0).equals(
@@ -67,17 +68,16 @@ public class BlockListener implements Listener {
     if (!event.isCancelled() && block != null)
       if (event.getAction() == Action.LEFT_CLICK_BLOCK
           || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-        if (block.getType() == Material.STONE_BUTTON
-            || block.getType() == Material.WOOD_BUTTON
+        if (Tag.BUTTONS.isTagged(block.getType())
             || block.getType() == Material.LEVER) {
           for (final BlockFace bf : BlockFace.values())
             if (testSign(event.getPlayer(), block.getRelative(bf)))
               return;
         } else if (block.getType() == Material.WALL_SIGN
-            || block.getType() == Material.SIGN_POST)
+            || block.getType() == Material.SIGN)
           testSign(event.getPlayer(), block);
       } else if (event.getAction() == Action.PHYSICAL
-          && (block.getType() == Material.STONE_PLATE || block.getType() == Material.WOOD_PLATE))
+          && (block.getType() == Material.STONE_PRESSURE_PLATE || Tag.WOODEN_PRESSURE_PLATES.isTagged(block.getType())))
         for (final BlockFace bf : BlockFace.values())
           if (testSign(event.getPlayer(), block.getRelative(bf)))
             return;
@@ -94,7 +94,7 @@ public class BlockListener implements Listener {
   private boolean testSign(Player player, Block block) {
     Sign sign = null;
     if (block.getType() == Material.WALL_SIGN
-        || block.getType() == Material.SIGN_POST)
+        || block.getType() == Material.SIGN)
       sign = (Sign) block.getState();
 
     if (sign != null)
