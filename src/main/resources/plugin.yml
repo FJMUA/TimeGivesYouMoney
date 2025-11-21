@@ -6,6 +6,7 @@ authors: [WildN00b]
 main: me.wildn00b.timegivesyoumoney.TimeGivesYouMoney
 database: false
 depend: [Vault]
+folia-supported: true
 
 commands:
   tgym:
