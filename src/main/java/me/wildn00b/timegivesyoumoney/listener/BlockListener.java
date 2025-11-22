@@ -1,5 +1,6 @@
 package me.wildn00b.timegivesyoumoney.listener;
 
+import cn.handyplus.lib.adapter.PlayerSchedulerUtil;
 import me.wildn00b.timegivesyoumoney.TimeGivesYouMoney;
 
 import org.bukkit.ChatColor;
@@ -17,6 +18,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import java.util.Collections;
+import java.util.List;
 
 public class BlockListener implements Listener {
 
@@ -118,6 +122,12 @@ public class BlockListener implements Listener {
                   .replace("%MONEY%",
                       result + tgym.Vault.GetEconomy().currencyNamePlural())
                   .replace("%TIME%", (result / mps) + ""));
+          Object playerExecCmds = tgym.Settings.get("Trigger.Commands.PlayerExec", Collections.emptyList());
+          if (playerExecCmds instanceof List && !((List<?>) playerExecCmds).isEmpty()) {
+            for (String cmd : (List<String>) playerExecCmds) {
+              PlayerSchedulerUtil.performCommand(player, cmd);
+            }
+          }
         }
         return true;
       }

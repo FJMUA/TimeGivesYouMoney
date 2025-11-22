@@ -21,6 +21,7 @@ package me.wildn00b.timegivesyoumoney.io;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -90,8 +91,10 @@ public class Settings {
     list.put("Group.Default.MaxMoneyEarnPerDay", (double) 20000);
     list.put("Group.Default.MaxMoneyEarnPerSession", (double) 10000);
 
+    list.put("Trigger.Commands.PlayerExec", Collections.emptyList());
+
     for (final Entry<String, Object> entry : list.entrySet())
-      if (!file.contains(entry.getKey()) || file.equals("SettingsVersion"))
+      if (!file.contains(entry.getKey()) || entry.getKey().equals("SettingsVersion"))
         file.set(entry.getKey(), entry.getValue());
 
   }

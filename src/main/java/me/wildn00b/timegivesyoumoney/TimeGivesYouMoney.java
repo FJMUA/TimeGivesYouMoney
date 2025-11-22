@@ -18,7 +18,8 @@
  */
 package me.wildn00b.timegivesyoumoney;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +39,7 @@ public class TimeGivesYouMoney extends JavaPlugin {
   public static final int ONE_DAY_IN_TICKS = 20 * 60 * 60 * 24;
   public static final int ONE_MINUTE_IN_TICKS = 20 * 60;
 
-  public HashMap<String, Long> afkTimer = new HashMap<String, Long>();
+  public Map<String, Long> afkTimer = new ConcurrentHashMap<>();
 
   public Bank Bank = null;
 
