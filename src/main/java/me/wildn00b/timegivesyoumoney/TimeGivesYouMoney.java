@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import cn.handyplus.lib.adapter.HandySchedulerUtil;
 import me.wildn00b.timegivesyoumoney.command.TGYMCommand;
 import me.wildn00b.timegivesyoumoney.io.Bank;
 import me.wildn00b.timegivesyoumoney.io.Language;
@@ -57,6 +58,7 @@ public class TimeGivesYouMoney extends JavaPlugin {
 
   @Override
   public void onEnable() {
+    HandySchedulerUtil.init(this);
     Settings = new Settings(this);
     Lang = new Language(this);
     Vault = new Vault(this);
@@ -72,18 +74,8 @@ public class TimeGivesYouMoney extends JavaPlugin {
 
     Version = getDescription().getVersion();
 
-    getServer().getScheduler().scheduleSyncRepeatingTask(this,
-        new MoneyGiver(this), 0, ONE_MINUTE_IN_TICKS);
-
-    getServer().getScheduler().scheduleSyncRepeatingTask(this,
-        new ClearDay(this), 0, ONE_DAY_IN_TICKS);
-
-    try {
-      final Metrics metrics = new Metrics(this);
-      metrics.findCustomData();
-      metrics.start();
-    } catch (final Exception e) {
-    }
+    HandySchedulerUtil.runTaskTimer(new MoneyGiver(this), 0, ONE_MINUTE_IN_TICKS);
+    HandySchedulerUtil.runTaskTimer(new ClearDay(this), 0, ONE_DAY_IN_TICKS);
 
     Log.log(Level.INFO, Lang.get("TimeGivesYouMoney.Enable"));
   }

@@ -32,8 +32,7 @@ public class BlockListener implements Listener {
 
     if (!event.isCancelled()
         && event.getBlock() != null
-        && (event.getBlock().getType() == Material.WALL_SIGN || event
-            .getBlock().getType() == Material.SIGN)) {
+        && Tag.ALL_SIGNS.isTagged(event.getBlock().getType())) {
       sign = (Sign) event.getBlock().getState();
 
       if (sign.getLine(0).equals(
@@ -49,8 +48,7 @@ public class BlockListener implements Listener {
     Sign sign;
     if (!event.isCancelled()
         && event.getBlock() != null
-        && (event.getBlock().getType() == Material.WALL_SIGN || event
-            .getBlock().getType() == Material.SIGN)) {
+        && Tag.ALL_SIGNS.isTagged(event.getBlock().getType())) {
       sign = (Sign) event.getBlock().getState();
 
       if (sign.getLine(0).equals(
@@ -73,8 +71,7 @@ public class BlockListener implements Listener {
           for (final BlockFace bf : BlockFace.values())
             if (testSign(event.getPlayer(), block.getRelative(bf)))
               return;
-        } else if (block.getType() == Material.WALL_SIGN
-            || block.getType() == Material.SIGN)
+        } else if (Tag.ALL_SIGNS.isTagged(block.getType()))
           testSign(event.getPlayer(), block);
       } else if (event.getAction() == Action.PHYSICAL
           && (block.getType() == Material.STONE_PRESSURE_PLATE || Tag.WOODEN_PRESSURE_PLATES.isTagged(block.getType())))
@@ -93,8 +90,7 @@ public class BlockListener implements Listener {
 
   private boolean testSign(Player player, Block block) {
     Sign sign = null;
-    if (block.getType() == Material.WALL_SIGN
-        || block.getType() == Material.SIGN)
+    if (Tag.ALL_SIGNS.isTagged(block.getType()))
       sign = (Sign) block.getState();
 
     if (sign != null)
@@ -116,14 +112,12 @@ public class BlockListener implements Listener {
           if (mps == -1)
             mps = 1;
 
-          player.sendMessage(ChatColor.YELLOW
-              + "[TimeGivesYouMoney] "
-              + ChatColor.GOLD
+          player.sendMessage(ChatColor.GOLD
               + tgym.Lang
                   .get("Command.Cashout.Success.Self")
-                  .replaceAll("%MONEY%",
+                  .replace("%MONEY%",
                       result + tgym.Vault.GetEconomy().currencyNamePlural())
-                  .replaceAll("%TIME%", (result / mps) + ""));
+                  .replace("%TIME%", (result / mps) + ""));
         }
         return true;
       }

@@ -23,7 +23,6 @@ import java.util.logging.Level;
 
 import me.wildn00b.timegivesyoumoney.TimeGivesYouMoney;
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -31,7 +30,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 public class Vault {
 
   private Economy economy;
-  private Permission permissions;
   private TimeGivesYouMoney tgym;
 
   public Vault(TimeGivesYouMoney tgym) {
@@ -40,16 +38,6 @@ public class Vault {
       tgym.Log.log(Level.SEVERE, "[PreKick] " + tgym.Lang.get("Vault.NotFound"));
       tgym.getServer().getPluginManager().disablePlugin(tgym);
     } else {
-      final RegisteredServiceProvider<Permission> perm = tgym.getServer()
-          .getServicesManager().getRegistration(Permission.class);
-      if (perm == null) {
-        tgym.Log.log(Level.SEVERE,
-            "[TimeGivesYouMoney] " + tgym.Lang.get("Vault.PermissionNotFound"));
-        tgym.getServer().getPluginManager().disablePlugin(tgym);
-        return;
-      }
-      permissions = perm.getProvider();
-
       final RegisteredServiceProvider<Economy> econ = tgym.getServer()
           .getServicesManager().getRegistration(Economy.class);
       if (econ == null) {
@@ -76,7 +64,7 @@ public class Vault {
   }
 
   public boolean HasPermissions(Player player, String permission) {
-    return permissions.has(player, permission);
+    return player.hasPermission(permission);
   }
 
 }
