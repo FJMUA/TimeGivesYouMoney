@@ -71,11 +71,11 @@ public class TGYMCommand implements CommandExecutor {
                 sender,
                 tgym.Lang
                     .get("Command.Cashout.Success.Self")
-                    .replaceAll(
+                    .replace(
                         "%MONEY%",
                         result + " "
                             + tgym.Vault.GetEconomy().currencyNamePlural())
-                    .replaceAll("%TIME%", (result / mps) + ""));
+                    .replace("%TIME%", (result / mps) + ""));
           }
         } else if (args[0].equalsIgnoreCase("stats")
             && p(sender, "tgym.stats.self", false)) {
@@ -95,11 +95,11 @@ public class TGYMCommand implements CommandExecutor {
               sender,
               tgym.Lang
                   .get("Command.Stats.Self")
-                  .replaceAll(
+                  .replace(
                       "%MONEY%",
                       tgym.Bank.GetMoney(((Player) sender).getName()) + " "
                           + tgym.Vault.GetEconomy().currencyNamePlural())
-                  .replaceAll("%TIME%", (result / mps) + ""));
+                  .replace("%TIME%", (result / mps) + ""));
         } else
           ShowHelp(sender, label, 1);
       } else if (args.length == 2) {
@@ -128,19 +128,19 @@ public class TGYMCommand implements CommandExecutor {
                 sender,
                 tgym.Lang
                     .get("Command.Cashout.Success.Other")
-                    .replaceAll(
+                    .replace(
                         "%MONEY%",
                         result + " "
                             + tgym.Vault.GetEconomy().currencyNamePlural())
-                    .replaceAll("%PLAYER%", args[1])
-                    .replaceAll("%TIME%", (result / mps) + ""));
+                    .replace("%PLAYER%", args[1])
+                    .replace("%TIME%", (result / mps) + ""));
           }
         } else if (args[0].equalsIgnoreCase("stats")
             && p(sender, "tgym.stats.other")) {
           if (tgym.getServer().getPlayer(args[1]) == null)
             send(
                 sender,
-                tgym.Lang.get("Command.FindNoPlayer").replaceAll("%PLAYER%",
+                tgym.Lang.get("Command.FindNoPlayer").replace("%PLAYER%",
                     args[1]));
           else {
             final Object val = tgym.Settings.get(
@@ -158,9 +158,9 @@ public class TGYMCommand implements CommandExecutor {
             send(
                 sender,
                 tgym.Lang.get("Command.Stats.Other")
-                    .replaceAll("%PLAYER%", args[1])
-                    .replaceAll("%MONEY%", "" + tgym.Bank.GetMoney(args[1]))
-                    .replaceAll("%TIME%", (result / mps) + ""));
+                    .replace("%PLAYER%", args[1])
+                    .replace("%MONEY%", "" + tgym.Bank.GetMoney(args[1]))
+                    .replace("%TIME%", (result / mps) + ""));
           }
         } else
           ShowHelp(sender, label, 1);
@@ -171,11 +171,11 @@ public class TGYMCommand implements CommandExecutor {
               sender,
               tgym.Lang
                   .get("Command.Add.Success")
-                  .replaceAll(
+                  .replace(
                       "%MONEY%",
                       args[2] + " "
                           + tgym.Vault.GetEconomy().currencyNamePlural())
-                  .replaceAll("%PLAYER%", args[1]));
+                  .replace("%PLAYER%", args[1]));
         } else if (args[0].equalsIgnoreCase("remove")
             && p(sender, "tgym.remove")) {
           tgym.Bank.Remove(args[1], Double.parseDouble(args[2]));
@@ -183,11 +183,11 @@ public class TGYMCommand implements CommandExecutor {
               sender,
               tgym.Lang
                   .get("Command.Remove.Success")
-                  .replaceAll(
+                  .replace(
                       "%MONEY%",
                       args[2] + " "
                           + tgym.Vault.GetEconomy().currencyNamePlural())
-                  .replaceAll("%PLAYER%", args[1]));
+                  .replace("%PLAYER%", args[1]));
         } else
           ShowHelp(sender, label, 1);
       } else
@@ -215,8 +215,7 @@ public class TGYMCommand implements CommandExecutor {
   }
 
   private void send(CommandSender sender, String msg) {
-    sender.sendMessage(ChatColor.YELLOW + "[TimeGivesYouMoney] "
-        + ChatColor.GOLD + msg);
+    sender.sendMessage(ChatColor.GOLD + msg);
   }
 
   private void ShowHelp(CommandSender sender, String label, int page) {
@@ -271,11 +270,11 @@ public class TGYMCommand implements CommandExecutor {
         + ChatColor.BOLD
         + tgym.Lang
             .get("Command.Title")
-            .replaceAll("%VERSION%", tgym.Version)
-            .replaceAll("%PAGE%", "" + ChatColor.RED + page + ChatColor.AQUA)
-            .replaceAll("%MAXPAGE%",
+            .replace("%VERSION%", tgym.Version)
+            .replace("%PAGE%", "" + ChatColor.RED + page + ChatColor.AQUA)
+            .replace("%MAXPAGE%",
                 "" + ChatColor.BLUE + maxpage + ChatColor.GOLD)
-            .replaceAll("%AUTHOR%", ChatColor.YELLOW + "WildN00b"));
+            .replace("%AUTHOR%", ChatColor.YELLOW + "WildN00b"));
     try {
       for (int i = (page - 1) * 6; i < ((page - 1) * 6) + 6; i++)
         sender.sendMessage(ChatColor.YELLOW + "/" + label + " " + cmds.get(i));
